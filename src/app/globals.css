@@ -2,7 +2,10 @@
 
 :root {
   --background: #ffffff;
-  --foreground: #171717;
+  --foreground: #1a1a1a;
+  --border: #e5e5e5;
+  --muted: #6b7280;
+  --accent: #f8f9fa;
 }
 
 @theme inline {
@@ -14,13 +17,271 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #fafafa;
+    --foreground: #1a1a1a;
+    --border: #e5e5e5;
+    --muted: #6b7280;
+    --accent: #f8f9fa;
   }
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', system-ui, sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 12px;
+  font-size: 13px;
+  font-weight: 500;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background: white;
+  color: var(--foreground);
+  cursor: pointer;
+  transition: all 0.15s ease;
+  text-decoration: none;
+}
+
+.btn:hover {
+  background: var(--accent);
+  border-color: #d1d5db;
+}
+
+.btn-primary {
+  background: var(--foreground);
+  color: white;
+  border-color: var(--foreground);
+}
+
+.btn-primary:hover {
+  background: #374151;
+  border-color: #374151;
+}
+
+.btn-small {
+  padding: 4px 8px;
+  font-size: 12px;
+}
+
+.input {
+  padding: 6px 10px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  font-size: 13px;
+  background: white;
+  transition: border-color 0.15s ease;
+}
+
+.input:focus {
+  outline: none;
+  border-color: #9ca3af;
+}
+
+.textarea {
+  padding: 8px 10px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  font-size: 13px;
+  background: white;
+  resize: vertical;
+  font-family: inherit;
+  line-height: 1.5;
+  transition: border-color 0.15s ease;
+}
+
+.textarea:focus {
+  outline: none;
+  border-color: #9ca3af;
+}
+
+.prose {
+  line-height: 1.6;
+  font-size: 15px;
+}
+
+.prose p {
+  margin-bottom: 1.2em;
+  color: #374151;
+}
+
+.prose h1 {
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 0.5em;
+  color: var(--foreground);
+}
+
+.prose h2 {
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 1.3;
+  margin-bottom: 0.75em;
+  color: #4b5563;
+}
+
+.prose h3 {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 0.5em;
+  color: #6b7280;
+}
+
+.editable-field {
+  border: 1px solid transparent;
+  border-radius: 3px;
+  padding: 4px 6px;
+  margin: -4px -6px;
+  transition: all 0.15s ease;
+  cursor: text;
+}
+
+.editable-field:hover {
+  background: #f9fafb;
+  border-color: #e5e7eb;
+}
+
+.editable-field:focus {
+  background: white;
+  border-color: #9ca3af;
+  outline: none;
+}
+
+.article-item {
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.article-item:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.article-item.selected {
+  box-shadow: 0 0 0 2px #e5e7eb;
+  background: #f9fafb;
+}
+
+.article-item.dragging {
+  opacity: 0.5;
+  transform: rotate(2deg);
+  cursor: grabbing !important;
+  z-index: 1000;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.article-item.drag-over {
+  border-top: 3px solid #6b7280;
+  margin-top: 6px;
+  background: #f3f4f6;
+}
+
+.drag-handle {
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  cursor: grab;
+  color: #9ca3af;
+  font-size: 16px;
+  padding: 4px;
+}
+
+.article-item:hover .drag-handle {
+  opacity: 1;
+}
+
+.drag-handle:hover {
+  color: #6b7280;
+}
+
+.drag-handle:active {
+  cursor: grabbing;
+}
+
+.drop-zone {
+  height: 4px;
+  background: #6b7280;
+  border-radius: 2px;
+  margin: 4px 0;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.drop-zone.active {
+  opacity: 1;
+}
+
+.rich-text-editor {
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background: white;
+  transition: border-color 0.15s ease;
+}
+
+.rich-text-editor:focus-within {
+  border-color: #9ca3af;
+}
+
+.rich-text-editor .ProseMirror {
+  outline: none;
+  min-height: 100px;
+}
+
+.rich-text-editor .ProseMirror p.is-editor-empty:first-child::before {
+  content: attr(data-placeholder);
+  float: left;
+  color: #9ca3af;
+  pointer-events: none;
+  height: 0;
+}
+
+.rich-text-editor .ProseMirror h2 {
+  font-size: 1.25em;
+  font-weight: 600;
+  margin-top: 1.5em;
+  margin-bottom: 0.5em;
+}
+
+.rich-text-editor .ProseMirror h3 {
+  font-size: 1.125em;
+  font-weight: 600;
+  margin-top: 1.25em;
+  margin-bottom: 0.5em;
+}
+
+.rich-text-editor .ProseMirror ul,
+.rich-text-editor .ProseMirror ol {
+  padding-left: 1.5em;
+  margin: 1em 0;
+}
+
+.rich-text-editor .ProseMirror blockquote {
+  border-left: 3px solid #e5e7eb;
+  padding-left: 1em;
+  margin: 1em 0;
+  color: #6b7280;
+  font-style: italic;
+}
+
+.rich-text-editor .ProseMirror strong {
+  font-weight: 600;
+}
+
+.rich-text-editor .ProseMirror em {
+  font-style: italic;
+}
+
+.rich-text-editor .ProseMirror {
+  white-space: pre-wrap;
+}
+
+.rich-text-editor .editor-paragraph {
+  white-space: pre-wrap;
+  word-wrap: break-word;
 }

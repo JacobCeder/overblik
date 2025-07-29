@@ -266,7 +266,8 @@ export const reorderArticles = async (overviewId: string, articles: Article[]): 
   } catch (error) {
     console.error('Failed to reorder articles:', error);
     // Preserve the original error details
-    throw new Error(`Failed to reorder articles in database: ${error.message || JSON.stringify(error)}`);
+    const errorMessage = error instanceof Error ? error.message : JSON.stringify(error);
+    throw new Error(`Failed to reorder articles in database: ${errorMessage}`);
   }
 };
 
